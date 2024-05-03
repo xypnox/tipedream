@@ -1,0 +1,16 @@
+.book p {
+  font-size: var(--step-0);
+  margin-block: 1rem;
+  text-indent: 2rem;
+  line-height: 1.75;
+}
+
+.book h2 {
+  margin-block: 4rem;
+  padding-block-start: 8rem;
+  border-block-start: 1px dashed #faf;
+  font-size: var(--step-3);
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  text-align: center;
+}

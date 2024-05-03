@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allBooks = await getCollection('books');
+
+// console.log(allBooks);
+---
+
+<Layout title="Books">
+{allBooks.map((book) => (
+  <article>
+    <h2>{book.data.title}</h2>
+    <p>{book.data.author}</p>
+    <a href={`/books/${book.slug}`}>Read</a>
+  </article>
+))}
+</Layout>
