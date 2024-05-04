@@ -1,18 +1,35 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../layouts/BookLayout.astro';
 
 const allBooks = await getCollection('books');
-
-// console.log(allBooks);
 ---
 
 <Layout title="Books">
-{allBooks.map((book) => (
-  <article>
-    <h2>{book.data.title}</h2>
-    <p>{book.data.author}</p>
-    <a href={`/books/${book.slug}`}>Read</a>
-  </article>
-))}
+  <ul>
+  {allBooks.map((book) => (
+    <li>
+      <a class="title" href={`/books/${book.slug}`}>
+        {book.data.title}</a>
+      {book.data.author && <p>{book.data.author}</p>}
+    </li>
+  ))}
 </Layout>
+
+<style>
+  li {
+    margin-bottom: 1rem;
+    font-size: var(--step-3);
+  }
+  li p, li a {
+    margin: 0;
+    text-indent: 0;
+  }
+  li a {
+    font-size: var(--step-3);
+    color: var(--accent);
+    text-decoration-color: var(--accent-fade);
+    display: inline-block;
+    margin-top: 1rem;
+  }
+</style>

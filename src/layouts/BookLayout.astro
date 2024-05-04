@@ -1,0 +1,61 @@
+---
+interface Props {
+  title: string;
+  author?: string;
+}
+import Layout from './Layout.astro';
+import '../components/book.css';
+const {title, author, frontmatter} = Astro.props;
+
+const resTitle = title || frontmatter && frontmatter.title;
+const resAuthor = author || frontmatter && frontmatter.author || undefined;
+---
+
+<Layout title={resTitle}>
+  <main>
+    <div class="cover">
+      <h1>{resTitle}</h1>
+      {resAuthor && <>
+        <div class="fleuron">❦</div>
+        <p>{resAuthor}</p>
+      </>}
+    </div>
+    <div class="book">
+      <slot></slot>
+    </div>
+  </main>
+</Layout>
+
+<style>
+
+	main {
+    font-size: var(--step-0);
+    --book-margin: calc((100% - min(50ch, 100%)) / 4);
+    width: calc(100% - 2rem);
+    margin: var(--book-margin) auto;
+    box-sizing: content-box;
+    padding: max(var(--book-margin), 1rem);
+    max-width: 50ch;
+    border: 1px solid var(--accent-fade);
+	}
+  .cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-fade);
+    min-height: 20rem;
+    text-align: center;
+    margin-block: 0rem 10rem;
+    padding: 2rem;
+  }
+  .cover h1 {
+    color: var(--accent);
+    font-size: var(--step-5);
+  }
+  .fleuron {
+    font-size: var(--step-2);
+    color: var(--accent-fade);
+    margin: 1rem;
+  }
+</style>

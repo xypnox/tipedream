@@ -37,10 +37,10 @@ const { title } = Astro.props;
   --step-5: clamp(2.4883rem, 2.223rem + 1.3264vi, 3.8147rem);
 }
 :root {
-  --background: #000;
-  --text: #aaa;
-  --accent: #aff;
-  --accent-fade: rgba(170, 255, 255, 0.2);
+  --background: #ede5d2;
+  --text: #544c34;
+  --accent: #d16c00;
+  --accent-fade: rgba(209, 108, 0, 0.3);
 }
   * {
     box-sizing: border-box;
@@ -72,6 +72,7 @@ const { title } = Astro.props;
 	}
   a {
     color: inherit;
-    text-decoration-color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--text);
   }
 </style>

@@ -1,14 +1,9 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import '../../components/book.css';
-
-// Get the slug from astro's context
-const slug = Astro.url.pathname;
+import Layout from '../../layouts/BookLayout.astro';
 
 export const getStaticPaths = (async () => {
-
   const allBooks = await getCollection('books');
   return allBooks.map((book) => {
     return {
@@ -20,56 +15,14 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-console.log(slug);
+// console.log(slug);
 
 const { book } = Astro.props;
 const { Content } = await book.render();
 ---
 
-<Layout title={slug}>
-  <main>
-  <div class="cover">
-    <h1>{book.data.title}</h1>
-    <div class="fleuron">❦</div>
-    <p>{book.data.author}</p>
-  </div>
-    <div class="book">
-      <Content />
-    </div>
-  </main>
+<Layout title={book.data.title} author={book.data.author }>
+  <Content />
 </Layout>
 
 
-<style>
-
-	main {
-    font-size: var(--step-0);
-    --book-margin: calc((100% - min(50ch, 100%)) / 4);
-    width: calc(100% - 2rem);
-    margin: var(--book-margin) auto;
-    box-sizing: content-box;
-    padding: max(var(--book-margin), 1rem);
-    max-width: 50ch;
-    border: 1px solid var(--accent-fade);
-	}
-  .cover {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--accent-fade);
-    min-height: 20rem;
-    text-align: center;
-    margin-block: 0rem 10rem;
-    padding: 2rem;
-  }
-  .cover h1 {
-    color: var(--accent);
-    font-size: var(--step-5);
-  }
-  .fleuron {
-    font-size: var(--step-2);
-    color: var(--accent-fade);
-    margin: 1rem;
-  }
-</style>
