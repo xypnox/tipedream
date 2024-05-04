@@ -1,13 +1,19 @@
 ---
-interface Props {
+interface BookData {
   title: string;
   author?: string;
+  frontmatter?: {
+    title: string;
+    author?: string;
+  }
 }
+export type Props = BookData
 import Layout from './Layout.astro';
 import '../components/book.css';
+
 const {title, author, frontmatter} = Astro.props;
 
-const resTitle = title || frontmatter && frontmatter.title;
+const resTitle = title || frontmatter && frontmatter.title || 'Untitled';
 const resAuthor = author || frontmatter && frontmatter.author || undefined;
 ---
 
