@@ -1,0 +1,33 @@
+
+/* These are in the font/ folder */
+/* LibreBaskerville-Bold.ttf */
+/* LibreBaskerville-Italic.ttf */
+/* LibreBaskerville-Regular.ttf */
+
+@font-face {
+  font-family: "LibreBaskerville";
+  src: 
+    local("Libre Baskerville"),
+    url("fonts/LibreBaskerville-Regular.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "LibreBaskerville";
+  src: 
+    local("Libre Baskerville"),
+    url("fonts/LibreBaskerville-Bold.ttf")
+    format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "LibreBaskerville";
+  src:
+    local("Libre Baskerville"),
+    url("fonts/LibreBaskerville-Italic.ttf")
+    format("truetype");
+  font-style: italic;
+}
+
+
