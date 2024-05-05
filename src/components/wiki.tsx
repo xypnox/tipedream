@@ -17,19 +17,41 @@ const WikiContent = styled.div`
 `
 
 const Controls = styled.div`
+  z-index: 100;
   position: sticky;
-  top: 0;
+  top: 0.25rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.5rem;
-  background-color: var(--surface-darker);
+  background-color: var(--surface-lighter);
+  border: 1px solid var(--accent-fade);
+  border-radius: 0.5rem;
   margin-bottom: 2rem;
+  transition: all 0.2s ease-in-out;
 
   form {
     display: flex;
     gap: 0.5rem;
+    button {
+      font-size: 0.9rem;
+      background-color: var(--surface-lighter);
+      color: var(--accent-text);
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: var(--accent);
+        color: var(--accent-over);
+      }
+      &:disabled {
+        background-color: var(--surface-darker);
+        color: var(--accent-fade);
+        &:hover {
+          background-color: var(--surface-darker);
+          color: var(--accent-fade);
+        }
+      }
+    }
   }
 
   ul {
@@ -44,8 +66,12 @@ const Controls = styled.div`
       font-size: 0.75rem;
       margin: 0;
       button {
-        background-color: var(--surface-lighter);
         color: var(--accent-text);
+        background-color: transparent;
+      }
+      button:hover {
+        color: var(--accent);
+        background-color: var(--surface-darker);
       }
     }
   }
@@ -65,6 +91,8 @@ const Cover = styled.div`
   h1 {
     color: var(--accent);
     font-size: var(--step-5);
+    margin: 0;
+    border: none;
   }
 
   .fleuron {
@@ -159,7 +187,8 @@ const parseAndImproveContent = (html: string) => {
   // Images are the .mw-file-element elements inside the figure with typeof="mw:File/Thumb"
   const singleImages = body.querySelectorAll("[typeof=\"mw:File/Thumb\"] .mw-file-element")
   const multiImages = body.querySelectorAll(".thumbimage [typeof=\"mw:File\"] .mw-file-element")
-  const images = Array.from(singleImages).concat(Array.from(multiImages))
+  const galleryImages = body.querySelectorAll(".gallerybox .mw-file-element")
+  const images = Array.from(singleImages).concat(Array.from(multiImages)).concat(Array.from(galleryImages))
   // const images2 = body.querySelectorAll(".mw-file-element ")
   //
   // console.log('Images', images, imagesInFigures)
@@ -182,9 +211,32 @@ const parseAndImproveContent = (html: string) => {
         img.removeAttribute("width")
         img.removeAttribute("height")
         img.setAttribute("data-xyprocessed", "true")
+        img.setAttribute("original-width", width)
+        img.setAttribute("original-height", height)
       }
     }
   })
+
+  const thumb = body.querySelectorAll(".gallerybox .thumb");
+  const gallerybox = body.querySelectorAll(".gallerybox");
+
+  console.log('Thumbs', thumb, gallerybox)
+  Array.from(thumb).concat(Array.from(gallerybox)).forEach((t) => {
+    if (t.hasAttribute("style") && t.getAttribute("style")!.includes("width")) {
+      const imageInsidet = t.querySelector("img")
+      if (imageInsidet) {
+        const imageWidth = imageInsidet.getAttribute("original-width")
+        // Set imagewidth as style of t
+        if (imageWidth) {
+          const newStyle = `width: ${scaledSize(parseFloat(imageWidth))};`
+          t.setAttribute("style", newStyle)
+        }
+      }
+      // 
+    }
+  });
+
+
 
 
 
@@ -276,7 +328,7 @@ export const Wiki = () => {
           <TitleInput type="text" onChange={
             (e) => setWiki((e.target as HTMLInputElement).value)
           } value={wiki()}></TitleInput>
-          <button type="submit">
+          <button type="submit" disabled={wikiHtml.loading}>
             {wikiHtml.loading ? "Loading..." : "Search"}
           </button>
         </form>
@@ -291,6 +343,11 @@ export const Wiki = () => {
         </ul>
       </Controls>
 
+      <Show when={wikiHtml.loading}>
+        <Cover>
+          <h1>Loading...</h1>
+        </Cover>
+      </Show>
       <Show when={!wikiHtml.loading && !wikiHtml.error && wikiDomContent().content !== "Loading..."}>
         <Cover>
           <h1>{wikiDomContent().title}</h1>

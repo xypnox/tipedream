@@ -1,7 +1,7 @@
 @namespace m url(http://www.w3.org/1998/Math/MathML);
 
 :root {
-  --page-width: 60ch;
+  --page-width: min(60ch, 100%);
   --wiki-heading: var(--accent-text);
   --wiki-link: var(--accent-text);
   --wiki-link-hover: var(--accent);
@@ -1984,6 +1984,8 @@ figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .thumbinner {
   width: 100% !important;
   max-width: min-content !important;
 }
+
+figure[typeof~="mw:File/Thumb"] .mw-file-element,
 .thumbinner.multiimageinner .tsingle,
 .thumbinner.multiimageinner .thumbimage {
   width: 100% !important;
@@ -1991,13 +1993,93 @@ figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .thumbinner {
   height: auto !important;
 }
 
+.reflist, .refbegin {
+  font-size: var(--step--1);
+  min-width: 90dvw;
+  /* We want to make the margins on the inline such that the references is in the middle,
+* Initially it is placed in the var(--page-width) column */
+  /* margin: 0; */
+
+  margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+}
+
+.navbox {
+  overflow-x: auto;
+  /* We want to make the margins on the inline such that the references is in the middle,
+* Initially it is placed in the var(--page-width) column */
+  /* margin: 0; */
+
+  min-width: 90dvw;
+  font-size: var(--step--2);
+  margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+}
+
+.navbox .navbox {
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+}
+
+.navbox table {
+  /* width: max-content; */
+  border-collapse: collapse;
+}
+
+.navbox th,
+.navbox td {
+  border: 1px solid var(--accent-fade);
+  padding: 0.25em 0.5em;
+}
+
+.gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  min-width: 90dvw;
+  margin-block: 2rem;
+  margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+}
+
+.gallery li {
+  list-style: none;
+  max-width: 100%;
+}
+
+.gallery li img,
+.gallery .thumb {
+  max-width: 100%;
+  height: auto !important;
+}
+
   /* --space-m: clamp(9.375rem, 7.5rem + 9.375vi, 18.75rem); */
 
-figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .tright {
-  margin-right: calc(-0.66 * var(--gutter-gap)) !important;
-  margin-left: 1rem !important;
+@media (min-width: 768px) {
+  figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .tright {
+    margin-right: calc(-0.66 * var(--gutter-gap)) !important;
+    margin-left: 1rem !important;
+  }
+  figure[typeof~="mw:File/Thumb"].mw-halign-left, figure[typeof~="mw:File/Frame"].mw-halign-left, .tleft {
+    margin-left: calc(-0.66 * var(--gutter-gap)) !important;
+    margin-right: 1rem !important;
+  }
 }
-figure[typeof~="mw:File/Thumb"].mw-halign-left, figure[typeof~="mw:File/Frame"].mw-halign-left, .tleft {
-  margin-left: calc(-0.66 * var(--gutter-gap)) !important;
-  margin-right: 1rem !important;
+
+@media (max-width: 767px) {
+  figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .tright,
+  figure[typeof~="mw:File/Thumb"].mw-halign-left, figure[typeof~="mw:File/Frame"].mw-halign-left, .tleft {
+    margin: 1rem auto !important;
+    display: block;
+    max-width: 100% !important;
+    float: none !important;
+    clear: both;
+  }
+  figcaption {
+    width: 100%;
+  }
 }
+
+
+
+

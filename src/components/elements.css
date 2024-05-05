@@ -19,4 +19,10 @@ button {
   padding: 0.25em 1em;
   background: var(--accent);
   color: var(--accent-over);
+  transition: padding 0.2s ease-in-out;
+}
+
+button:disabled {
+  background: var(--accent-fade);
+  color: var(--accent);
 }
