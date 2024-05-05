@@ -1,0 +1,22 @@
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+input, button, select, textarea {
+  border: 1px solid var(--accent-fade);
+  border-radius: 0.25em;
+  padding: 0.5rem;
+}
+
+input, select, textarea {
+  background-color: var(--surface-darker);
+}
+
+button {
+  padding: 0.25em 1em;
+  background: var(--accent);
+  color: var(--accent-over);
+}

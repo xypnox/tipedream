@@ -1,4 +1,5 @@
 ---
+import '../components/elements.css';
 import '../components/font.css';
 
 interface Props {
@@ -17,6 +18,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+    <slot name="head" />
 	</head>
 	<body>
 		<slot />
@@ -36,41 +38,27 @@ const { title } = Astro.props;
 }
 :root {
   --background: #ede5d2;
+  --surface-darker: #ebe0c6;
+  --surface-lighter: #f7e9d9;
   --text: #544c34;
   --accent: #d16c00;
+  --accent-text: #a35400;
   --accent-fade: rgba(209, 108, 0, 0.3);
+  --accent-over: #f7e9d9;
 }
   * {
     box-sizing: border-box;
   }
-  .libre-baskerville-regular {
-  font-family: "LibreBaskerville", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.libre-baskerville-bold {
-  font-family: "LibreBaskerville", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.libre-baskerville-regular-italic {
-  font-family: "LibreBaskerville", serif;
-  font-weight: 400;
-  font-style: italic;
-}
 	html {
     font-size: var(--step-0);
     background-color: var(--background);
     color: var(--text);
-    font-family: "LibreBaskerville", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "LibreBaskerville", "Libre Baskerville", serif;
+    line-height: 1.5;
 	}
   a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid var(--text);
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
   }
 </style>

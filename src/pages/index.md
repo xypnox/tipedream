@@ -17,6 +17,7 @@ This very page is presented in the usual prose book style.
 
 ## Examples
 
+- [Wiki](/wiki/)
 - [Books](/books/)
   - [Moby Dick](/books/moby-dick/)
 

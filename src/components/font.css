@@ -15,10 +15,10 @@
 @font-face {
   font-family: "LibreBaskerville";
   src: 
-    local("Libre Baskerville"),
+    local("Libre Baskerville Bold"),
     url("/fonts/LibreBaskerville-Bold.ttf")
     format("truetype");
-  font-weight: bold;
+  font-weight: 700;
 }
 
 @font-face {

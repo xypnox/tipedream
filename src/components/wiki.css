@@ -1,0 +1,2003 @@
+@namespace m url(http://www.w3.org/1998/Math/MathML);
+
+:root {
+  --page-width: 60ch;
+  --wiki-heading: var(--accent-text);
+  --wiki-link: var(--accent-text);
+  --wiki-link-hover: var(--accent);
+  --wiki-link-visited: var(--accent-text);
+  --gutter-gap: calc((100dvw - var(--page-width)) / 2);
+}
+
+.mwe-math-mathml-inline {
+    display: inline !important;
+}
+.mwe-math-mathml-display {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.mwe-math-mathml-a11y {
+    clip: rect(1px,1px,1px,1px);
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+.mwe-math-fallback-image-inline {
+    display: inline-block;
+    vertical-align: middle;
+}
+.mwe-math-fallback-image-display {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.mwe-math-fallback-source-inline {
+    display: inline;
+    vertical-align: middle;
+}
+.mwe-math-fallback-source-display {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+img.tex {
+    vertical-align: middle;
+}
+div.mwe-math-element {
+    overflow-x: auto;
+    max-width: 100%;
+}
+.mw-ref-follow {
+    display: none;
+}
+.mw-ref a {}
+.mw-ref a[data-mw-group]::after {
+    content: '[' attr(data-mw-group) ' ' counter(mw-ref,decimal) ']';
+}
+.mw-ref a::after {
+    content: '[' counter(mw-ref,decimal) ']';
+}
+span.mw-reflink-text,
+x-thereisnoelementwiththisname::after {
+    display: none;
+}
+ol.mw-references {
+    counter-reset: mw-ref-extends-parent mw-references list-item;
+}
+ol.mw-references > li {
+    counter-increment: mw-ref-extends-parent mw-references;
+}
+[rel~='mw:referencedby']::before {
+    content: '↑ ';
+}
+span[rel~='mw:referencedby'] {
+    counter-reset: mw-ref-linkback -1;
+}
+span[rel~='mw:referencedby'] a::before {
+    counter-increment: mw-ref-linkback;
+    content: counter(mw-references,decimal) '.' counter(mw-ref-linkback,decimal);
+    line-height: 1;
+    vertical-align: super;
+    font-size: smaller;
+}
+span[rel~='mw:referencedby'] a::after {
+    content: ' ';
+    line-height: 1;
+}
+span[rel~='mw:referencedby'] a:last-child::after {
+    content: '';
+}
+x-thereisnoelementwiththisname[rel='mw:referencedby']::before,
+span.mw-linkback-text {
+    display: none;
+}
+.mw-ext-cite-warning {
+    font-size: larger;
+    color: #ac6600;
+}
+.cite-accessibility-label,
+.mw-cite-backlink {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.mw-references-columns {
+    -webkit-column-width: 30em;
+    -moz-column-width: 30em;
+    column-width: 30em;
+    margin-top: 0.3em;
+}
+.mw-parser-output .mw-references-columns .references {
+    margin-top: 0;
+}
+.mw-references-columns li {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+}
+ol.references {
+    counter-reset: mw-ref-extends-parent mw-references list-item;
+}
+ol.references > li {
+    counter-increment: mw-ref-extends-parent mw-references;
+    counter-reset: mw-ref-extends-child;
+}
+ol.references .mw-extended-references {
+    list-style: none;
+    margin-left: 2em;
+}
+.mw-extended-references > li::before {
+    counter-increment: mw-ref-extends-child;
+    content: counter(mw-ref-extends-parent,decimal) '.' counter(mw-ref-extends-child,decimal) '. ';
+}
+sup.reference {
+    unicode-bidi: -moz-isolate;
+    unicode-bidi: -webkit-isolate;
+    unicode-bidi: isolate;
+    white-space: nowrap;
+    font-weight: normal;
+    font-style: normal;
+}
+ol.references li:target,
+sup.reference:target {
+    background-color: #eaf3ff;
+}
+.mw-ext-cite-error {
+    font-weight: bold;
+    unicode-bidi: embed;
+}
+.mw-ext-cite-error code {
+    background-color: transparent;
+    color: inherit;
+    padding: 1px 2px;
+}
+.mw-cite-dir-ltr .reference-text {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+.mw-cite-dir-rtl .reference-text {
+    direction: rtl;
+    unicode-bidi: embed;
+}
+@media print {
+    .mw-cite-backlink {
+        display: none;
+    }
+}
+.mw-ext-imagemap-inner {
+    display: inline-block;
+    position: relative;
+}
+.mw-ext-imagemap-desc-link {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url("/w/extensions/imagemap/resources/desc-20.png?15600");
+}
+.mw-ext-imagemap-desc-top-right > :not(figcaption) .mw-ext-imagemap-desc-link {
+    top: 5px;
+    right: 5px;
+}
+.mw-ext-imagemap-desc-bottom-right > :not(figcaption) .mw-ext-imagemap-desc-link {
+    bottom: 5px;
+    right: 5px;
+}
+.mw-ext-imagemap-desc-bottom-left > :not(figcaption) .mw-ext-imagemap-desc-link {
+    bottom: 5px;
+    left: 5px;
+}
+.mw-ext-imagemap-desc-top-left > :not(figcaption) .mw-ext-imagemap-desc-link {
+    top: 5px;
+    left: 5px;
+}
+video {
+    height: auto;
+    max-width: 100%;
+}
+.mw-tmh-player.audio,
+audio {
+    height: 30px;
+    --inline-controls-bar-height: 30px;
+    width: 300px;
+}
+.thumb .mw-tmh-player.audio,
+audio.thumbimage,
+video.thumbimage {
+    border: 0;
+    margin: 1px auto;
+}
+.gallerybox .mw-tmh-player.audio {
+    width: 90%;
+}
+.mw-tmh-player {
+    display: inline-block;
+    position: relative;
+    line-height: 0;
+}
+.mw-tmh-player .mw-tmh-play {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.thumb .mw-tmh-player,
+.thumb audio,
+.thumb video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.mw-tmh-label {
+    display: inline-block;
+    line-height: 1;
+    position: absolute;
+    right: 1em;
+    font-weight: bold;
+    background-color: rgba(0,0,0,0.8);
+    color: #fff;
+    border-radius: 0.3em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+.mw-tmh-label .sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+.mw-tmh-player.video .mw-tmh-label.mw-tmh-duration {
+    bottom: 1em;
+}
+.mw-tmh-player.video .mw-tmh-label.mw-tmh-cc {
+    font-size: 110%;
+    top: 1em;
+}
+.mw-tmh-player.audio .mw-tmh-label {
+    font-size: 80%;
+    top: 0.35em;
+}
+.mw-tmh-player.audio .mw-tmh-label.mw-tmh-cc {
+    right: 5em;
+}
+.mw-tmh-player.video .mw-tmh-play .mw-tmh-play-icon {
+    background: rgba(0,0,0,0.8) url("data:image/svg+xml,%3csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewbox=%220 0 20 20%22%3e %3ctitle%3eplay%3c/title%3e %3cpath fill=%22%23fff%22 d=%22m4.55 19a1 1 0 0 1 3 18.13v1.87a1 1 0 0 1 4.55 1l12.2 8.13a1 1 0 0 1 0 1.7z%22/%3e %3c/svg%3e") center no-repeat;
+    display: block;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    transition: transform 120ms ease-out,background-color 120ms ease-out;
+}
+.mw-tmh-player.audio .mw-tmh-play .mw-tmh-play-icon {
+    background: rgba(0,0,0,0.5) url("data:image/svg+xml,%3csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewbox=%220 0 20 20%22%3e %3ctitle%3eplay%3c/title%3e %3cpath fill=%22%23fff%22 d=%22m4.55 19a1 1 0 0 1 3 18.13v1.87a1 1 0 0 1 4.55 1l12.2 8.13a1 1 0 0 1 0 1.7z%22/%3e %3c/svg%3e") no-repeat 10px;
+    transition: background-color 120ms ease-out;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.mw-tmh-player.video .mw-tmh-play:active .mw-tmh-play-icon,
+.mw-tmh-player.video .mw-tmh-play:focus .mw-tmh-play-icon,
+.mw-tmh-player.video .mw-tmh-play:hover .mw-tmh-play-icon {
+    background-color: rgba(0,0,0,0.8);
+    transform: translate(-50%,-50%) scale(1.1);
+}
+.mw-tmh-player.audio .mw-tmh-play:active .mw-tmh-play-icon,
+.mw-tmh-player.audio .mw-tmh-play:focus .mw-tmh-play-icon,
+.mw-tmh-player.audio .mw-tmh-play:hover .mw-tmh-play-icon {
+    background-color: rgba(0,0,0,0.8);
+}
+@supports (aspect-ratio:1 / 1) {
+    .mw-tmh-player.video > .mw-tmh-play .mw-tmh-play-icon {
+        width: auto;
+        height: min(50px,70%);
+        aspect-ratio: 1;
+    }
+}
+.mw-tmh-player-interstitial {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.5);
+    text-align: center;
+}
+.mw-tmh-player-progress {
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.mw-tmh-player-progress-bar {
+    height: 1em;
+    transition: width 100ms;
+    animation: mw-tmh-player-progress-bar-slide 2s infinite linear;
+    width: 40%;
+    transform: translate(-25%);
+    background-color: #36c;
+}
+@keyframes mw-tmh-player-progress-bar-slide {
+    from {
+        transform: translate(-100%);
+    }
+    to {
+        transform: translate(350%);
+    }
+}
+.mw-parser-output {
+    counter-reset: mw-numbered-ext-link;
+}
+.mw-parser-output a[rel~='mw:extlink']:empty::after {
+    content: '[' counter(mw-numbered-ext-link) ']';
+    counter-increment: mw-numbered-ext-link;
+}
+figure[typeof~='mw:file'],
+figure[typeof~='mw:file/frameless'] {}
+.mw-body-content figure[typeof~='mw:file'] > a,
+.mw-body-content figure[typeof~='mw:file/frameless'] > a {
+    border: 0;
+}
+figure[typeof~='mw:file'].mw-halign-right,
+figure[typeof~='mw:file/frameless'].mw-halign-right {
+    margin: 0 0 0.5em 0.5em;
+    clear: right;
+    float: right;
+}
+figure[typeof~='mw:file'].mw-halign-left,
+figure[typeof~='mw:file/frameless'].mw-halign-left {
+    margin: 0 0.5em 0.5em 0;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:file'].mw-halign-none,
+figure[typeof~='mw:file/frameless'].mw-halign-none {
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:file'].mw-halign-center,
+figure[typeof~='mw:file/frameless'].mw-halign-center {
+    margin: 0 auto;
+    display: table;
+    border-collapse: collapse;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:file'] > figcaption,
+figure[typeof~='mw:file/frameless'] > figcaption {
+    display: none;
+}
+figure[typeof~='mw:file/thumb'],
+figure[typeof~='mw:file/frame'] {
+    display: table;
+    text-align: center;
+    border-collapse: collapse;
+    line-height: 0;
+    margin: 1em;
+    clear: right;
+    float: right;
+}
+.mw-body-content figure[typeof~='mw:File/Thumb'] > a,
+.mw-body-content figure[typeof~='mw:File/Frame'] > a {
+    border: 0;
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'],
+.mw-content-ltr figure[typeof~='mw:File/Frame'] {
+    margin: 1em; 
+    clear: right;
+    float: right;
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'],
+.mw-content-rtl figure[typeof~='mw:File/Frame'] {
+    margin: 1em;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-right,
+figure[typeof~='mw:File/Frame'].mw-halign-right {
+    margin: 1em;
+    clear: right;
+    float: right;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-left,
+figure[typeof~='mw:File/Frame'].mw-halign-left {
+    margin: 1em;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-none,
+figure[typeof~='mw:File/Frame'].mw-halign-none {
+    margin: 0 0 0.5em;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-center,
+figure[typeof~='mw:File/Frame'].mw-halign-center {
+    margin: 0 auto 0.5em;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File/Frame'] > :not(figcaption),
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) {}
+figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
+    margin: 3px;
+}
+figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-broken-media,
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-broken-media {
+    display: inline-block;
+    line-height: 1.6em;
+    word-break: break-word;
+    width: 180px;
+    font-size: 94%;
+}
+figure[typeof~='mw:File/Thumb'] > figcaption,
+figure[typeof~='mw:File/Frame'] > figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    line-height: 1.4em;
+    word-break: break-word;
+    text-align: left;
+    padding: 0 6px 6px;
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'] > figcaption,
+.mw-content-ltr figure[typeof~='mw:File/Frame'] > figcaption {
+    text-align: left;
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'] > figcaption,
+.mw-content-rtl figure[typeof~='mw:File/Frame'] > figcaption {
+    text-align: right;
+}
+figure[typeof~='mw:File/Frame'] > figcaption:empty {
+    padding-bottom: 0;
+}
+figure[typeof~='mw:File/Thumb'] > figcaption:empty {
+    padding-bottom: 3px;
+}
+.mw-valign-middle .mw-file-element {
+    vertical-align: middle;
+}
+.mw-valign-baseline .mw-file-element {
+    vertical-align: baseline;
+}
+.mw-valign-sub .mw-file-element {
+    vertical-align: sub;
+}
+.mw-valign-super .mw-file-element {
+    vertical-align: super;
+}
+.mw-valign-top .mw-file-element {
+    vertical-align: top;
+}
+.mw-valign-text-top .mw-file-element {
+    vertical-align: text-top;
+}
+.mw-valign-bottom .mw-file-element {
+    vertical-align: bottom;
+}
+.mw-valign-text-bottom .mw-file-element {
+    vertical-align: text-bottom;
+}
+figure[typeof~='mw:File/Thumb'],
+figure[typeof~='mw:File/Frame'] {
+    border: 1px solid var(--accent-fade);
+    border-bottom: 0;
+    background-color: var(--surface-lighter);
+}
+figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
+    border: 1px solid var(--accent-fade);
+    background: var(--surface-lighter);
+}
+figure[typeof~='mw:File/Thumb'] > figcaption,
+figure[typeof~='mw:File/Frame'] > figcaption {
+    border: 1px solid var(--accent-fade);
+    border-top: 0;
+    background-color: var(--surface-lighter);
+    font-size: 88.4%;
+}
+.mw-image-border .mw-file-element {
+    border: 1px solid #eaecf0;
+}
+figure[typeof~='mw:File/Thumb'] > figcaption::before {
+    content: '';
+    width: 15px;
+    height: 11px;
+    margin: 0 0 0 3px;
+    float: right;
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'] > figcaption::before {
+    margin: 0 0 0 3px;
+    float: right;
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'] > figcaption::before {
+    margin: 0 3px 0 0;
+    float: left;
+}
+figure[typeof~='mw:File/Thumb'] > .mw-file-description,
+figure[typeof~='mw:File/Thumb'] > .mw-file-magnify {
+    display: block;
+    position: relative;
+}
+figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+    content: '';
+    width: 15px;
+    height: 11px;
+    position: absolute;
+    bottom: -11px;
+    right: 6px;
+    background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+.mw-content-ltr figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+    right: 6px;
+    left: auto;
+    background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+.mw-content-rtl figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+    right: auto;
+    left: 6px;
+    background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-rtl.svg?38fd5");
+}
+.mw-gallery-traditional .gallerybox > .thumb::before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+}
+.mw-gallery-traditional .gallerybox > .thumb > * {
+    vertical-align: middle;
+    display: inline-block;
+}
+@media (prefers-reduced-motion:reduce) {
+    *,
+    ::after,
+    ::before {
+        animation-delay: -0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0 !important;
+    }
+}
+.firstHeading::before {
+    content: url("/static/images/mobile/copyright/wikipedia-wordmark-en.svg");
+    display: block;
+    height: 18px;
+    left: -9999px;
+    line-height: 0;
+    margin-bottom: 20px;
+    position: absolute;
+    width: 120px;
+}
+div.floatright,
+div.tright,
+table.floatright {
+    clear: right;
+    float: right;
+}
+@media all and (max-width:720px) {
+    body.skin--responsive div.floatright,
+    body.skin--responsive div.tright,
+    body.skin--responsive table.floatright {
+        clear: both;
+        float: none;
+    }
+}
+div.floatleft,
+div.tleft,
+table.floatleft {
+    float: left;
+    clear: left;
+}
+@media all and (max-width:720px) {
+    body.skin--responsive div.floatleft,
+    body.skin--responsive div.tleft,
+    body.skin--responsive table.floatleft {
+        clear: both;
+        float: none;
+    }
+}
+div.floatright,
+table.floatright {
+    margin: 0 0 0.5em 0.5em;
+}
+div.floatleft,
+table.floatleft {
+    margin: 0 0.5em 0.5em 0;
+}
+div.thumb {
+    width: auto;
+    background-color: transparent;
+    margin-bottom: 0.5em;
+}
+div.tleft {
+    margin: 0.5em 1.4em 1.3em 0;
+}
+div.tright {
+    margin: 0.5em 0 1.3em 1.4em;
+}
+.thumbcaption {
+    text-align: left;
+    line-height: 1.4em;
+    padding: 3px;
+}
+.thumbcaption:empty {
+    padding: 0;
+}
+div.thumbinner {
+    padding: 3px;
+    text-align: center;
+    overflow: hidden;
+}
+@media all and (max-width:720px) {
+    body.skin--responsive .mw-parser-output .thumb .thumbinner {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        flex-direction: column;
+    }
+    body.skin--responsive .mw-parser-output .thumb .thumbinner > .thumbcaption {
+        justify-content: space-between;
+        width: 100%;
+        flex: 1 0 100%;
+        order: 1;
+        display: block;
+    }
+}
+figure[typeof~='mw:File'],
+figure[typeof~='mw:File/Frameless'] {}
+.mw-body-content figure[typeof~='mw:File'] > a,
+.mw-body-content figure[typeof~='mw:File/Frameless'] > a {
+    border: 0;
+}
+figure[typeof~='mw:File'].mw-halign-right,
+figure[typeof~='mw:File/Frameless'].mw-halign-right {
+    margin: 0 0 0.5em 0.5em;
+    clear: right;
+    float: right;
+}
+figure[typeof~='mw:File'].mw-halign-left,
+figure[typeof~='mw:File/Frameless'].mw-halign-left {
+    margin: 0 0.5em 0.5em 0;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:File'].mw-halign-none,
+figure[typeof~='mw:File/Frameless'].mw-halign-none {
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File'].mw-halign-center,
+figure[typeof~='mw:File/Frameless'].mw-halign-center {
+    margin: 0 auto;
+    display: table;
+    border-collapse: collapse;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File'] > figcaption,
+figure[typeof~='mw:File/Frameless'] > figcaption {
+    display: none;
+}
+figure[typeof~='mw:File/Thumb'],
+figure[typeof~='mw:File/Frame'] {
+    display: table;
+    text-align: center;
+    border-collapse: collapse;
+    line-height: 0;
+    margin: 1em;
+    clear: right;
+    float: right;
+}
+.mw-body-content figure[typeof~='mw:File/Thumb'] > a,
+.mw-body-content figure[typeof~='mw:File/Frame'] > a {
+    border: 0;
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'],
+.mw-content-ltr figure[typeof~='mw:File/Frame'] {
+    margin: 1em;
+    clear: right;
+    float: right;
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'],
+.mw-content-rtl figure[typeof~='mw:File/Frame'] {
+    margin: 1em;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-right,
+figure[typeof~='mw:File/Frame'].mw-halign-right {
+    margin: 1em;
+    clear: right;
+    float: right;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-left,
+figure[typeof~='mw:File/Frame'].mw-halign-left {
+    margin: 1em;
+    clear: left;
+    float: left;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-none,
+figure[typeof~='mw:File/Frame'].mw-halign-none {
+    margin: 0 0 0.5em;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File/Thumb'].mw-halign-center,
+figure[typeof~='mw:File/Frame'].mw-halign-center {
+    margin: 0 auto 0.5em;
+    clear: none;
+    float: none;
+}
+figure[typeof~='mw:File/Frame'] > :not(figcaption),
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) {}
+figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
+    margin: 3px;
+}
+figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-broken-media,
+figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-broken-media {
+    display: inline-block;
+    line-height: 1.6em;
+    word-break: break-word;
+    width: 180px;
+    font-size: 94%;
+}
+figure[typeof~='mw:File/Thumb'] > figcaption,
+figure[typeof~='mw:File/Frame'] > figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    line-height: 1.4em;
+    word-break: break-word;
+    text-align: left;
+    padding: 0 6px 6px;
+}
+.mw-content-ltr figure[typeof~='mw:File/Thumb'] > figcaption,
+.mw-content-ltr figure[typeof~='mw:File/Frame'] > figcaption {
+    text-align: left;
+}
+.mw-content-rtl figure[typeof~='mw:File/Thumb'] > figcaption,
+.mw-content-rtl figure[typeof~='mw:File/Frame'] > figcaption {
+    text-align: right;
+}
+figure[typeof~='mw:File/Frame'] > figcaption:empty {
+    padding-bottom: 0;
+}
+figure[typeof~='mw:File/Thumb'] > figcaption:empty {
+    padding-bottom: 3px;
+}
+.mw-valign-middle .mw-file-element {
+    vertical-align: middle;
+}
+.mw-valign-baseline .mw-file-element {
+    vertical-align: baseline;
+}
+.mw-valign-sub .mw-file-element {
+    vertical-align: sub;
+}
+.mw-valign-super .mw-file-element {
+    vertical-align: super;
+}
+.mw-valign-top .mw-file-element {
+    vertical-align: top;
+}
+.mw-valign-text-top .mw-file-element {
+    vertical-align: text-top;
+}
+.mw-valign-bottom .mw-file-element {
+    vertical-align: bottom;
+}
+.mw-valign-text-bottom .mw-file-element {
+    vertical-align: text-bottom;
+}
+.mw-message-box {
+    background-color: #eaecf0;
+    color: #000;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    border: 1px solid #54595d;
+    padding: 12px 24px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+.mw-message-box > :only-child {
+    margin: 0;
+}
+.mw-message-box h2 {
+    color: inherit;
+    display: block;
+    border: 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+.mw-message-box .mw-logevent-loglines li {
+    font-size: 90%;
+}
+.mw-message-box-error {
+    background-color: #fee7e6;
+    border-color: #b32424;
+}
+.mw-message-box-warning {
+    background-color: #fef6e7;
+    border-color: #a66200;
+}
+.mw-message-box-success {
+    background-color: #d5fdf4;
+    border-color: #096450;
+}
+.toctogglecheckbox:checked ~ ul {
+    display: none;
+}
+.mw-wiki-logo {
+    background-image: url("/static/images/project-logos/enwiki.png");
+}
+@media print {
+    .firstHeading::before {
+        left: auto;
+        position: relative;
+    }
+    div.floatright,
+    table.floatright {
+        border: 0;
+    }
+    div.floatleft,
+    table.floatleft {
+        border: 0;
+    }
+    div.thumb {
+        page-break-inside: avoid;
+    }
+    div.thumb a {
+        border-bottom: 0;
+    }
+    div.thumbinner {
+        background-color: #fff;
+        color: #666;
+        min-width: 100px;
+        border: 1pt solid #000;
+        border-radius: 2px;
+        font-size: 10pt;
+    }
+    .thumbborder {
+        border: 1pt solid #ddd;
+    }
+    .magnify {
+        display: none;
+    }
+    figure[typeof~='mw:File/Thumb'],
+    figure[typeof~='mw:File/Frame'] {
+        border: 1pt;
+        border-bottom: 0;
+        background-color: #fff;
+    }
+    figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
+    figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
+        border: 1pt solid #ddd;
+    }
+    figure[typeof~='mw:File/Thumb'] > figcaption,
+    figure[typeof~='mw:File/Frame'] > figcaption {
+        background-color: #fff;
+        color: #666;
+        font-size: 10pt;
+        border: 1pt;
+        border-top: 0;
+    }
+    .mw-image-border .mw-file-element {
+        border: 1pt;
+    }
+    .mw-parser-output a.external {}
+    .mw-parser-output a.external.autonumber::after,
+    .mw-parser-output a.external.text::after {
+        content: ' (' attr(href) ')';
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+    .mw-parser-output a.external.text[href^='//']:after,
+    .mw-parser-output a.external.autonumber[href^='//']:after {
+        content: ' (https:' attr(href) ')';
+    }
+    #siteNotice,
+    .mw-editsection,
+    .mw-editsection-like,
+    .mw-indicators,
+    .usermessage {
+        display: none;
+    }
+    .printfooter {
+        padding: 1em 0;
+    }
+    .center {
+        text-align: center;
+    }
+    a {
+        background: none !important;
+        padding: 0 !important;
+    }
+    a,
+    a.external,
+    a.new,
+    a.stub {
+        color: inherit !important;
+        text-decoration: inherit !important;
+    }
+    dt {
+        font-weight: bold;
+    }
+    .mw-heading,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: bold;
+        page-break-after: avoid;
+        page-break-before: avoid;
+    }
+    p {
+        margin: 1em 0;
+        line-height: 1.2;
+        orphans: 3;
+        widows: 3;
+    }
+    figure,
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        border: 0;
+        vertical-align: middle;
+    }
+    .mw-code,
+    pre {
+        background: #fff;
+        color: #000;
+        border: 1pt dashed #000;
+        padding: 1em;
+        font-size: 8pt;
+        white-space: pre-wrap;
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
+    ul {
+        list-style-type: square;
+    }
+    .toctogglecheckbox:checked + .toctitle {
+        display: none;
+    }
+    .toc {
+        background-color: #f9f9f9;
+        border: 1pt solid #aaa;
+        padding: 5px;
+        display: table;
+    }
+    .tocnumber,
+    .toctext {
+        display: table-cell;
+    }
+    .tocnumber {
+        padding-left: 0;
+        padding-right: 0.5em;
+    }
+    .mw-content-ltr .tocnumber {
+        padding-left: 0;
+        padding-right: 0.5em;
+    }
+    .mw-content-rtl .tocnumber {
+        padding-left: 0.5em;
+        padding-right: 0;
+    }
+}
+@media screen {
+    div.thumbinner {
+        border: 1px solid var(--accent-fade);
+        background-color: var(--surface-lighter);
+        font-size: 94%;
+    }
+    .thumbimage {
+        background-color: var(--surface-lighter);
+        border: 1px solid var(--accent-fade);
+    }
+    .thumbcaption {
+        border: 0;
+        font-size: 94%;
+    }
+    .thumbborder {
+        border: 1px solid #eaecf0;
+    }
+    .magnify {
+        float: right;
+        margin-left: 3px;
+    }
+    .magnify a {
+        display: block;
+        text-indent: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 15px;
+        height: 11px;
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .mw-content-ltr .thumbcaption {
+        text-align: left;
+    }
+    .mw-content-rtl .thumbcaption {
+        text-align: right;
+    }
+    .mw-content-ltr .magnify {
+        margin-left: 3px;
+        margin-right: 0;
+        float: right;
+    }
+    .mw-content-ltr .magnify a {
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+    }
+    .mw-content-rtl .magnify {
+        margin-left: 0;
+        margin-right: 3px;
+        float: left;
+    }
+    .mw-content-rtl .magnify a {
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-rtl.svg?38fd5");
+    }
+    figure[typeof~='mw:File/Thumb'],
+    figure[typeof~='mw:File/Frame'] {
+        border: 1px solid var(--accent-fade);
+        border-bottom: 0;
+        background-color: var(--surface-lighter);
+    }
+    figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
+    figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
+        border: 1px solid var(--accent-fade);
+        background: var(--surface-lighter);
+    }
+    figure[typeof~='mw:File/Thumb'] > figcaption,
+    figure[typeof~='mw:File/Frame'] > figcaption {
+        border: 1px solid var(--accent-fade);
+        border-top: 0;
+        background-color: var(--surface-lighter);
+        font-size: 88.4%;
+    }
+    .mw-image-border .mw-file-element {
+        border: 1px solid #eaecf0;
+    }
+    figure[typeof~='mw:File/Thumb'] > figcaption::before {
+        content: '';
+        width: 15px;
+        height: 11px;
+        margin: 0 0 0 3px;
+        float: right;
+    }
+    .mw-content-ltr figure[typeof~='mw:File/Thumb'] > figcaption::before {
+        margin: 0 0 0 3px;
+        float: right;
+    }
+    .mw-content-rtl figure[typeof~='mw:File/Thumb'] > figcaption::before {
+        margin: 0 3px 0 0;
+        float: left;
+    }
+    figure[typeof~='mw:File/Thumb'] > .mw-file-description,
+    figure[typeof~='mw:File/Thumb'] > .mw-file-magnify {
+        display: block;
+        position: relative;
+    }
+    figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+    figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+        content: '';
+        width: 15px;
+        height: 11px;
+        position: absolute;
+        bottom: -11px;
+        right: 6px;
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+    }
+    .mw-content-ltr figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+    .mw-content-ltr figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+        right: 6px;
+        left: auto;
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?8330e");
+    }
+    .mw-content-rtl figure[typeof~='mw:File/Thumb'] > .mw-file-description::after,
+    .mw-content-rtl figure[typeof~='mw:File/Thumb'] > .mw-file-magnify::after {
+        right: auto;
+        left: 6px;
+        background-image: url("/w/resources/src/mediawiki.skinning/images/magnify-clip-rtl.svg?38fd5");
+    }
+    .mw-body-content::after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+    .mw-body-content a.external.free {
+        word-wrap: break-word;
+    }
+    .mw-body-content .error {
+        font-size: larger;
+        color: #d73333;
+    }
+    .rtl .mw-parser-output a.external.autonumber,
+    .rtl .mw-parser-output a.external.free {
+        direction: ltr;
+        unicode-bidi: embed;
+    }
+    .mw-hide-empty-elt .mw-parser-output:not(.mw-show-empty-elt) .mw-empty-elt {
+        display: none;
+    }
+    .emptyPortlet {
+        display: none;
+    }
+    .client-nojs #t-print,
+    .printfooter {
+        display: none;
+    }
+    .mw-editsection {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .mw-editsection,
+    .mw-editsection-like {
+        font-size: small;
+        font-weight: normal;
+        margin-left: 1em;
+        vertical-align: baseline;
+        line-height: 0;
+    }
+    .mw-content-ltr .mw-editsection,
+    .mw-content-ltr .mw-editsection-like,
+    .mw-content-rtl .mw-content-ltr .mw-editsection,
+    .mw-content-rtl .mw-content-ltr .mw-editsection-like {
+        margin-left: 1em;
+        margin-right: 0;
+    }
+    .mw-content-ltr .mw-content-rtl .mw-editsection,
+    .mw-content-ltr .mw-content-rtl .mw-editsection-like,
+    .mw-content-rtl .mw-editsection,
+    .mw-content-rtl .mw-editsection-like {
+        margin-right: 1em;
+        margin-left: 0;
+    }
+    .mw-indicators {
+        float: right;
+    }
+    #siteNotice {
+        position: relative;
+        text-align: center;
+        margin: 0;
+    }
+    #localNotice {
+        margin-bottom: 0.9em;
+    }
+    #siteSub {
+        display: none;
+    }
+    #contentSub2,
+    #mw-content-subtitle {
+        font-size: 84%;
+        line-height: 1.2em;
+        margin: 0 0 1.4em 1em;
+        color: #54595d;
+        width: auto;
+    }
+    span.subpages {
+        display: block;
+    }
+    .usermessage {
+        background-color: #fef6e7;
+        border: 1px solid #a66200;
+        color: #000;
+        font-weight: bold;
+        margin: 2em 0 1em;
+        padding: 0.5em 1em;
+        vertical-align: middle;
+    }
+    a {
+        text-decoration: none;
+        color: var(--wiki-link);
+        background: none;
+    }
+    a:not([href]) {
+        cursor: pointer;
+    }
+    a:visited {
+        color: var(--wiki-link-visited);
+        opacity: 0.85;
+    }
+    a:active {
+        color: var(--wiki-link-hover);
+    }
+    a:focus,
+    a:hover {
+        text-decoration: underline;
+    }
+    a:hover {
+        color: var(--wiki-link-hover);
+    }
+    a:lang(ar),
+    a:lang(kk-arab),
+    a:lang(mzn),
+    a:lang(ps),
+    a:lang(ur) {
+        text-decoration: none;
+    }
+    img {
+        border: 0;
+        vertical-align: middle;
+    }
+    hr {
+        height: 1px;
+        background-color: #a2a9b1;
+        border: 0;
+        margin: 0.2em 0;
+    }
+    .mw-heading,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--wiki-heading);
+        font-weight: bold;
+        margin: 0;
+        padding-top: 0.5em;
+        padding-bottom: 0.17em;
+        overflow: hidden;
+    }
+    .mw-heading1,
+    .mw-heading2,
+    h1,
+    h2 {
+        margin-bottom: 0.6em;
+        border-bottom: 1px solid var(--accent-fade);
+    }
+    .mw-heading3,
+    .mw-heading4,
+    .mw-heading5,
+    h3,
+    h4,
+    h5 {
+        margin-bottom: 0.3em;
+    }
+    .mw-heading1,
+    h1 {
+        font-size: 188%;
+        font-weight: normal;
+    }
+    .mw-heading2,
+    h2 {
+        font-size: 150%;
+        font-weight: normal;
+    }
+    .mw-heading3,
+    h3 {
+        font-size: 128%;
+    }
+    .mw-heading4,
+    h4 {
+        font-size: 116%;
+    }
+    .mw-heading5,
+    h5 {
+        font-size: 108%;
+    }
+    .mw-heading6,
+    h6 {
+        font-size: 100%;
+    }
+    .mw-heading h1,
+    .mw-heading h2,
+    .mw-heading h3,
+    .mw-heading h4,
+    .mw-heading h5,
+    .mw-heading h6 {
+        display: inline;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        color: inherit;
+        font: inherit;
+    }
+    p {
+        margin: 0.4em 0 0.5em;
+    }
+    p img {
+        margin: 0;
+    }
+    ul {
+        margin: 0.3em 0 0 1.6em;
+        padding: 0;
+    }
+    ol {
+        margin: 0.3em 0 0 3.2em;
+        padding: 0;
+        list-style-image: none;
+    }
+    li {
+        margin-bottom: 0.1em;
+    }
+    dt {
+        font-weight: bold;
+        margin-bottom: 0.1em;
+    }
+    dl {
+        margin-top: 0.2em;
+        margin-bottom: 0.5em;
+    }
+    dd {
+        margin-left: 1.6em;
+        margin-bottom: 0.1em;
+    }
+    .mw-code,
+    code,
+    kbd,
+    pre,
+    samp,
+    tt {
+        font-family: monospace,monospace;
+    }
+    .mw-code,
+    code,
+    pre {
+        background-color: var(--surface-lighter);
+        color: #000;
+        border: 1px solid #eaecf0;
+    }
+    code {
+        border-radius: 2px;
+        padding: 1px 4px;
+    }
+    .mw-code,
+    pre {
+        padding: 1em;
+        white-space: pre-wrap;
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
+    table {
+        font-size: 100%;
+    }
+    fieldset {
+        border: 1px solid #2a4b8d;
+        margin: 1em 0;
+        padding: 0 1em 1em;
+    }
+    legend {
+        padding: 0.5em;
+    }
+    form {
+        border: 0;
+        margin: 0;
+    }
+    textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid #a2a9b1;
+        padding: 0.1em;
+    }
+    .center {
+        width: 100%;
+        text-align: center;
+    }
+    *.center * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .small {
+        font-size: 94%;
+    }
+    table.small {
+        font-size: 100%;
+    }
+    .toc,
+    .toccolours {
+        background-color: var(--surface-lighter);
+        border: 1px solid #a2a9b1;
+        padding: 5px;
+        font-size: 95%;
+    }
+    .toc {
+        display: table;
+        padding: 7px;
+    }
+    .toc h2 {
+        display: inline;
+        border: 0;
+        padding: 0;
+        font-size: 100%;
+        font-weight: bold;
+    }
+    .toc .toctitle {
+        text-align: center;
+    }
+    .toc ul {
+        list-style: none;
+        margin: 0.3em 0;
+        padding: 0;
+        text-align: left;
+    }
+    .toc ul ul {
+        margin: 0 0 0 2em;
+    }
+    table.toc {
+        border-collapse: collapse;
+    }
+    table.toc td {
+        padding: 0;
+    }
+    .tocnumber,
+    .toctext {
+        display: table-cell;
+        text-decoration: inherit;
+    }
+    .tocnumber {
+        color: #202122;
+        padding-left: 0;
+        padding-right: 0.5em;
+    }
+    .mw-content-ltr .tocnumber {
+        padding-left: 0;
+        padding-right: 0.5em;
+    }
+    .mw-content-rtl .tocnumber {
+        padding-left: 0.5em;
+        padding-right: 0;
+    }
+    .toctogglecheckbox {
+        display: inline !important;
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+    }
+    .toctogglespan {
+        font-size: 94%;
+    }
+    .toctogglespan::before {
+        content: ' [';
+    }
+    .toctogglespan::after {
+        content: ']';
+    }
+    .toctogglelabel {
+        color: var(--wiki-link);
+        cursor: pointer;
+    }
+    .toctogglelabel:hover {
+        text-decoration: underline;
+    }
+    .toctogglecheckbox:focus + .toctitle .toctogglelabel {
+        text-decoration: underline;
+        outline: auto;
+    }
+    .toctogglecheckbox:checked + .toctitle .toctogglelabel::after {
+        content: 'show';
+    }
+    .toctogglecheckbox:not(:checked) + .toctitle .toctogglelabel::after {
+        content: 'hide';
+    }
+    .toc .toctitle {
+        direction: ltr;
+    }
+    .mw-content-ltr .toc ul,
+    .mw-content-rtl .mw-content-ltr .toc ul {
+        text-align: left;
+    }
+    .mw-content-ltr .mw-content-rtl .toc ul,
+    .mw-content-rtl .toc ul {
+        text-align: right;
+    }
+    .mw-content-ltr .toc ul ul,
+    .mw-content-rtl .mw-content-ltr .toc ul ul {
+        margin: 0 0 0 2em;
+    }
+    .mw-content-ltr .mw-content-rtl .toc ul ul,
+    .mw-content-rtl .toc ul ul {
+        margin: 0 2em 0 0;
+    }
+}
+@media (-webkit-min-device-pixel-ratio:1.5),(min-resolution:1.5dppx),(min-resolution:144dpi) {
+    .mw-wiki-logo {
+        background-image: url("/static/images/project-logos/enwiki-1.5x.png");
+        background-size: 135px auto;
+    }
+}
+@media (-webkit-min-device-pixel-ratio:2),(min-resolution:2dppx),(min-resolution:192dpi) {
+    .mw-wiki-logo {
+        background-image: url("/static/images/project-logos/enwiki-2x.png");
+        background-size: 135px auto;
+    }
+}
+cite,
+dfn {
+    font-style: inherit;
+}
+q {
+    quotes: '"' '"' "'" "'";
+}
+blockquote {
+    overflow: hidden;
+    margin: 1em 0;
+    padding: 0 40px;
+}
+small {
+    font-size: 85%;
+}
+.mw-body-content sub,
+.mw-body-content sup {
+    font-size: 80%;
+}
+.ns-talk .mw-body-content dd {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+#editpage-specialchars,
+.client-js .collapsible:not(.mw-made-collapsible).collapsed > tbody > tr:not(:first-child),
+.client-js .outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) .mw-collapsible-content,
+.client-js .outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) > p,
+.client-js .outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) > table,
+.client-js .outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) > thead + tbody,
+.client-js .outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) tr:not(:first-child) {
+    display: none;
+}
+ol.references {
+    font-size: 90%;
+    margin-bottom: 0.5em;
+}
+span[rel="mw:referencedBy"] {
+    counter-reset: mw-ref-linkback 0;
+}
+span[rel='mw:referencedBy'] > a::before {
+    content: counter(mw-ref-linkback,lower-alpha);
+    font-size: 80%;
+    font-weight: bold;
+    font-style: italic;
+}
+a[rel="mw:referencedBy"]::before {
+    font-weight: bold;
+    content: "^";
+}
+span[rel="mw:referencedBy"]::before {
+    content: "^ ";
+}
+.mw-ref > a[data-mw-group=lower-alpha]::after {
+    content: '[' counter(mw-Ref,lower-alpha) ']';
+}
+.mw-ref > a[data-mw-group=upper-alpha]::after {
+    content: '[' counter(mw-Ref,upper-alpha) ']';
+}
+.mw-ref > a[data-mw-group=decimal]::after {
+    content: '[' counter(mw-Ref,decimal) ']';
+}
+.mw-ref > a[data-mw-group=lower-roman]::after {
+    content: '[' counter(mw-Ref,lower-roman) ']';
+}
+.mw-ref > a[data-mw-group=upper-roman]::after {
+    content: '[' counter(mw-Ref,upper-roman) ']';
+}
+.mw-ref > a[data-mw-group=lower-greek]::after {
+    content: '[' counter(mw-Ref,lower-greek) ']';
+}
+.mw-parser-output .mw-collapsible-toggle:not(.mw-ui-button) {
+    font-weight: normal;
+    padding-right: 0.2em;
+    padding-left: 0.2em;
+}
+.mw-collapsible-leftside-toggle .mw-collapsible-toggle {
+    float: left;
+}
+.wikitable td dl,
+.wikitable td ol,
+.wikitable td ul {
+    text-align: left;
+}
+.mw-parser-output a[href$=".pdf"].external,
+.mw-parser-output a[href*=".pdf?"].external,
+.mw-parser-output a[href*=".pdf#"].external,
+.mw-parser-output a[href$=".PDF"].external,
+.mw-parser-output a[href*=".PDF?"].external,
+.mw-parser-output a[href*=".PDF#"].external {
+    background: url("//upload.wikimedia.org/wikipedia/commons/4/4d/Icon_pdf_file.png") no-repeat right;
+    padding: 8px 18px 8px 0;
+}
+.mw-warning-with-logexcerpt.mw-warning-with-logexcerpt.mw-warning-with-logexcerpt,
+div#mw-protect-cascadeon,
+div.mw-cascadeprotectedwarning,
+div.mw-lag-warn-high {
+    clear: both;
+    margin: 0.2em 0;
+    border: 1px solid #bb7070;
+    background-color: #ffdbdb;
+    padding: 0.25em 0.9em;
+    box-sizing: border-box;
+}
+.mw-contributions-blocked-notice-partial .mw-warning-with-logexcerpt.mw-warning-with-logexcerpt {
+    border-color: #fc3;
+    background-color: #fef6e7;
+}
+figure[typeof~='mw:File/Thumb'],
+figure[typeof~='mw:File/Frame'],
+.thumbinner {
+    min-width: 100px;
+}
+#filehistory,
+#mw-category-media,
+#mw-pages,
+#mw-subcategories,
+#wikiDiff,
+#wikiPreview {
+    clear: both;
+}
+.mw-tag-markers {
+    font-style: italic;
+    font-size: 90%;
+}
+.abusefilter-helper-show,
+.abusefilter-show,
+.autoconfirmed-show,
+.checkuser-show,
+.extendedconfirmed-show,
+.extendedmover-show,
+.patroller-show,
+.sysop-show,
+.templateeditor-show,
+.user-show {
+    display: none;
+}
+.ve-ui-mwNoticesPopupTool-item .editnotice-redlink,
+.ve-ui-mwNoticesPopupTool-item .mbox-image,
+.ve-ui-mwNoticesPopupTool-item .mbox-imageright {
+    display: none !important;
+}
+ul.permissions-errors {
+    margin: 0;
+}
+ul.permissions-errors > li {
+    list-style: none;
+}
+span.mwe-math-mathml-inline {
+    font-size: 118%;
+}
+.mwe-math-fallback-image-display,
+.mwe-math-mathml-display {
+    margin-left: 1.6em !important;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+}
+.mwe-math-mathml-display math {
+    display: inline;
+}
+@media screen {
+    body:not(.ns-0):not(.ns-2):not(.ns-100) .gallerybox .thumb img {
+        background: #fff url("//upload.wikimedia.org/wikipedia/commons/5/5d/Checker-16x16.png") repeat;
+    }
+    #siteSub {
+        display: block;
+    }
+}
+#t-upload,
+.flaggedrevs_draft_synced,
+.flaggedrevs_stable_synced,
+.mw-special-Book #coll-downloadbox {
+    display: none;
+}
+.infobox {
+    position: relative;
+    border: 1px solid var(--accent-fade);
+    border-spacing: 3px;
+    background-color: var(--surface-darker);
+    color: var(--text);
+    margin: 1em;
+    padding: 0.5em;
+    float: right;
+    clear: right;
+    border-radius: 0.5rem;
+    font-size: 88%;
+    line-height: 1.5em;
+    width: min(24em, 33vw);
+    margin-right: calc(-0.5 * var(--gutter-gap));
+    /* margin-right: calc(-0.75 * (100dvh - 100vw)); */
+}
+.infobox td,
+.infobox th,
+.infobox-above,
+.infobox-below,
+.infobox-data,
+.infobox-full-data,
+.infobox-header,
+.infobox-image,
+.infobox-label,
+.infobox-navbar,
+.infobox-subheader {
+    vertical-align: top;
+}
+.infobox td,
+.infobox th,
+.infobox-data,
+.infobox-label {
+    text-align: left;
+}
+.infobox .infobox-above,
+.infobox .infobox-title,
+.infobox caption {
+    font-size: 125%;
+    font-weight: bold;
+    text-align: center;
+}
+.infobox caption,
+.infobox-title {
+    padding: 0.2em;
+}
+.infobox .infobox-below,
+.infobox .infobox-full-data,
+.infobox .infobox-header,
+.infobox .infobox-image,
+.infobox .infobox-subheader {
+    text-align: center;
+}
+.infobox .infobox-navbar {
+    text-align: right;
+}
+.wikitable.plainrowheaders th[scope=row],
+.wikitable.plainrowheaders th[scope=rowgroup] {
+    font-weight: normal;
+    text-align: left;
+}
+.IPA a:link,
+.IPA a:visited,
+.nounderlines a {
+    text-decoration: none !important;
+}
+.nowrap,
+.nowraplinks a {
+    white-space: nowrap;
+}
+.wrap,
+.wraplinks a {
+    white-space: normal;
+}
+span.texhtml {
+    font-family: "Nimbus Roman No9 L","Times New Roman",Times,serif;
+    font-size: 118%;
+    line-height: 1;
+    white-space: nowrap;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-kerning: none;
+}
+span.texhtml span.texhtml {
+    font-size: 100%;
+}
+@media screen {
+    .nochecker .gallerybox .thumb img {
+        background-image: none;
+    }
+}
+.action-view.page-Main_Page #contentSub,
+.action-view.page-Main_Page #contentSub2,
+.action-view.page-Main_Page #siteSub,
+.page-Main_Page #deleteconfirm,
+.page-Main_Page #footer-info-lastmod,
+.page-Main_Page #t-cite {
+    display: none !important;
+}
+body.skin-vector-legacy #coordinates {
+    position: absolute;
+    top: 3.5em;
+    right: 0;
+    line-height: 1.6;
+    text-align: right;
+    font-size: 92%;
+    white-space: nowrap;
+    float: right;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    text-transform: none;
+}
+body.skin-vector-legacy .ve-ce-surface #coordinates {
+    margin-right: 2em;
+    margin-top: -1em;
+}
+body.skin-vector-legacy div.flaggedrevs_short {
+    position: absolute;
+    top: -3em;
+    right: 100px;
+    z-index: 1;
+}
+body.skin-vector-legacy #siteSub {
+    font-size: 92%;
+}
+body.skin-vector-legacy .mw-indicators {
+    padding-top: 0.4em;
+}
+.mw-body-content blockquote {
+    border-left: none;
+}
+@media print {
+    #mw-revision-nav,
+    .editlink,
+    .mediawiki.ns--1 .mw-parser-output .sidebar,
+    .mediawiki.ns-0 .mw-parser-output .sidebar,
+    .navbar,
+    .nourlexpansion a.external.autonumber:after,
+    .nourlexpansion a.external.text:after,
+    .ns--1 .ambox,
+    .ns--1 .hatnote,
+    .ns--1 .metadata,
+    .ns--1 .navbox,
+    .ns--1 .sisterproject,
+    .ns-0 .ambox,
+    .ns-0 .hatnote,
+    .ns-0 .metadata,
+    .ns-0 .navbox,
+    .ns-0 .sisterproject,
+    .sistersitebox,
+    span.mw-collapsible-toggle,
+    td .sortkey,
+    th .sortkey {
+        display: none !important;
+    }
+    .mw-parser-output .mw-collapsed .mw-collapsible-content {
+        display: block !important;
+    }
+    .mw-parser-output table.mw-collapsed > * > tr,
+    table.collapsible tr {
+        display: table-row !important;
+    }
+    .mw-parser-output ol.mw-collapsed > li,
+    .mw-parser-output ul.mw-collapsed > li {
+        display: list-item !important;
+    }
+    #firstHeading {
+        margin: 0;
+    }
+    #content a.external.autonumber:after,
+    #content a.external.text:after {
+        word-wrap: break-word;
+    }
+    .infobox {
+        border: solid 1px #aaa;
+        background-color: #fff;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 180pt !important;
+    }
+    .infobox > * > tr > td,
+    .infobox > * > tr > th {
+        padding: 2px 5px;
+        border-bottom: 1px solid #EAECF0;
+    }
+    .infobox > * > tr:last-child > td,
+    .infobox > * > tr:last-child > th,
+    .infobox a {
+        border: 0;
+    }
+    .refbegin a,
+    .reference a,
+    .references a {
+        color: black !important;
+    }
+    .reference a {
+        border-bottom: 0;
+    }
+    cite *,
+    div.refbegin,
+    div.reflist,
+    ol.references {
+        font-size: inherit !important;
+    }
+    .refbegin li,
+    .references li {
+        color: #666;
+        line-height: 14pt;
+    }
+    .printfooter {
+        clear: both;
+    }
+}
+
+/* Overrides for the "Modern" skin */
+
+.infobox .infobox-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  padding-block: 0 0.5em;
+}
+
+.infobox-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid var(--accent-fade);
+  padding-block: 1em 0.5em;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.infobox-full-data table {
+  background-color: transparent !important;
+  border-collapse: collapse;
+}
+
+/** Add border to elemenst of table */
+.infobox-full-data table th,
+.infobox-full-data table td {
+  border: 1px solid var(--accent-fade);
+  padding: 0.5em 0.25em;
+}
+
+p {
+  text-indent: 1em;
+}
+
+.hatnote:first-child {
+  margin-top: 0;
+  max-width: 100%;
+}
+
+.hatnote {
+  margin-block: 0.5em;
+  font-size: 0.9em;
+  background-color: var(--surface-darker);
+  padding: 0.5em;
+  border: 1px solid var(--accent-fade);
+  border-left: 4px solid var(--accent);
+  border-radius: 0.25em;
+  clear: both;
+}
+
+.hatnote.navigation-not-searchable {
+  display: none;
+}
+
+figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .thumbinner {
+	min-width: 10vw;
+  max-width: 100%;
+}
+
+.mwe-math-fallback-image-inline {
+  max-width: 100%;
+}
+
+.thumbinner.multiimageinner {
+  width: 100% !important;
+  max-width: min-content !important;
+}
+.thumbinner.multiimageinner .tsingle,
+.thumbinner.multiimageinner .thumbimage {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+  /* --space-m: clamp(9.375rem, 7.5rem + 9.375vi, 18.75rem); */
+
+figure[typeof~="mw:File/Thumb"], figure[typeof~="mw:File/Frame"], .tright {
+  margin-right: calc(-0.66 * var(--gutter-gap)) !important;
+  margin-left: 1rem !important;
+}
+figure[typeof~="mw:File/Thumb"].mw-halign-left, figure[typeof~="mw:File/Frame"].mw-halign-left, .tleft {
+  margin-left: calc(-0.66 * var(--gutter-gap)) !important;
+  margin-right: 1rem !important;
+}
