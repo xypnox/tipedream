@@ -85,7 +85,7 @@ const Cover = styled.div`
   border: 1px solid var(--accent-fade);
   min-height: 20rem;
   text-align: center;
-  margin-block: 0rem 10rem;
+  margin-block: 0rem 5rem;
   padding: 2rem;
 
   h1 {
@@ -288,7 +288,7 @@ export const Wiki = () => {
   const clickRemapper = (e: MouseEvent) => {
     const target = e.target as HTMLAnchorElement
     console.log('Clicked', target)
-    if (target.tagName === 'A' && target.href && target.href.includes('/wiki/')) {
+    if (target.tagName === 'A' && target.href && target.href.includes('/wiki/') && target.target !== '_blank') {
       e.preventDefault();
       const oldHref = target.href
       // Strip the end of the /wiki/ and only keep the part after /wiki/
@@ -352,7 +352,7 @@ export const Wiki = () => {
         <Cover>
           <h1>{wikiDomContent().title}</h1>
           <div class="fleuron">❧</div>
-          <p><a href={`https://en.wikipedia.org/wiki/${wiki()}`}>Wikipedia</a></p>
+          <p><a href={`https://en.wikipedia.org/wiki/${wiki()}`} target="_blank">Wikipedia</a></p>
         </Cover>
 
         <WikiContent>

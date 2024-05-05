@@ -1719,6 +1719,7 @@ span.mwe-math-mathml-inline {
     line-height: 1.5em;
     width: min(24em, 33vw);
     margin-right: calc(-0.5 * var(--gutter-gap));
+    max-width: 20ch;
     /* margin-right: calc(-0.75 * (100dvh - 100vw)); */
 }
 .infobox td,
@@ -2064,6 +2065,11 @@ figure[typeof~="mw:File/Thumb"] .mw-file-element,
     margin-left: calc(-0.66 * var(--gutter-gap)) !important;
     margin-right: 1rem !important;
   }
+  .infobox {
+    table-layout: fixed;
+    min-width: 24rem;
+    /* max-width: 20ch !important; */
+  }
 }
 
 @media (max-width: 767px) {
@@ -2077,6 +2083,11 @@ figure[typeof~="mw:File/Thumb"] .mw-file-element,
   }
   figcaption {
     width: 100%;
+  }
+  .infobox {
+    width: 100vw !important;
+    min-width: calc(100vw - 3rem) !important;
+    margin: 1rem auto;
   }
 }
 
