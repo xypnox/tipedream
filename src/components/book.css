@@ -5,6 +5,11 @@
   line-height: 1.75;
 }
 
+.book li p {
+  margin-block: 0.25em;
+  text-indent: 0;
+}
+
 .book p:first-child {
   text-indent: 0;
 }
@@ -38,9 +43,4 @@
 
 .book blockquote p {
   margin-block: 0;
-}
-
-.book ul {
-  margin-block: 1rem;
-  padding-inline-start: 2rem;
 }

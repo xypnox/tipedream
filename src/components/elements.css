@@ -26,3 +26,23 @@ button:disabled {
   background: var(--accent-fade);
   color: var(--accent);
 }
+
+ul, ol {
+  margin: 1em 0;
+  padding-inline-start: 2rem;
+}
+
+ul li, ol li {
+  margin: 0.5em 0;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin: 0.5em 0;
+}
+
+li p {
+  margin: 0.25em 0; 
+}

@@ -1,0 +1,15 @@
+---
+import { allBooks } from '../lib/content';
+const books = await allBooks()
+---
+
+<ul>
+{books.map((book) => (
+  <li>
+    <a class="title" href={`/books/${book.slug}`}>
+      {book.data.title}</a>
+    {book.data.author && <p>{book.data.author}</p>}
+  </li>
+))}
+</ul>
+

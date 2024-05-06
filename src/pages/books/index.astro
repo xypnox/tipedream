@@ -1,22 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../../layouts/BookLayout.astro';
+import Booklist from '../../components/booklist.astro';
 
-const allBooks = await getCollection('books');
 ---
 
 <Layout title="Books">
-  <ul>
-  {allBooks.map((book) => (
-    <li>
-      <a class="title" href={`/books/${book.slug}`}>
-        {book.data.title}</a>
-      {book.data.author && <p>{book.data.author}</p>}
-    </li>
-  ))}
+  <Booklist />
 </Layout>
 
-<style>
+<style is:global>
+  ul {
+    padding: 0;
+  }
   li {
     margin-bottom: 1rem;
     font-size: var(--step-3);
