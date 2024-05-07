@@ -1,4 +1,3 @@
-@namespace m url(http://www.w3.org/1998/Math/MathML);
 
 :root {
   --page-width: min(60ch, 100%);
@@ -53,7 +52,7 @@ div.mwe-math-element {
 .mw-ref-follow {
     display: none;
 }
-.mw-ref a {}
+/* .mw-ref a {} */
 .mw-ref a[data-mw-group]::after {
     content: '[' attr(data-mw-group) ' ' counter(mw-ref,decimal) ']';
 }
@@ -345,8 +344,8 @@ video.thumbimage {
     content: '[' counter(mw-numbered-ext-link) ']';
     counter-increment: mw-numbered-ext-link;
 }
-figure[typeof~='mw:file'],
-figure[typeof~='mw:file/frameless'] {}
+/* figure[typeof~='mw:file'], */
+/* figure[typeof~='mw:file/frameless'] {} */
 .mw-body-content figure[typeof~='mw:file'] > a,
 .mw-body-content figure[typeof~='mw:file/frameless'] > a {
     border: 0;
@@ -430,8 +429,8 @@ figure[typeof~='mw:File/Frame'].mw-halign-center {
     clear: none;
     float: none;
 }
-figure[typeof~='mw:File/Frame'] > :not(figcaption),
-figure[typeof~='mw:File/Thumb'] > :not(figcaption) {}
+/* figure[typeof~='mw:File/Frame'] > :not(figcaption), */
+/* figure[typeof~='mw:File/Thumb'] > :not(figcaption) {} */
 figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
 figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
     margin: 3px;
@@ -661,8 +660,8 @@ div.thumbinner {
         display: block;
     }
 }
-figure[typeof~='mw:File'],
-figure[typeof~='mw:File/Frameless'] {}
+/* figure[typeof~='mw:File'], */
+/* figure[typeof~='mw:File/Frameless'] {} */
 .mw-body-content figure[typeof~='mw:File'] > a,
 .mw-body-content figure[typeof~='mw:File/Frameless'] > a {
     border: 0;
@@ -746,8 +745,8 @@ figure[typeof~='mw:File/Frame'].mw-halign-center {
     clear: none;
     float: none;
 }
-figure[typeof~='mw:File/Frame'] > :not(figcaption),
-figure[typeof~='mw:File/Thumb'] > :not(figcaption) {}
+/* figure[typeof~='mw:File/Frame'] > :not(figcaption), */
+/* figure[typeof~='mw:File/Thumb'] > :not(figcaption) {} */
 figure[typeof~='mw:File/Frame'] > :not(figcaption) .mw-file-element,
 figure[typeof~='mw:File/Thumb'] > :not(figcaption) .mw-file-element {
     margin: 3px;
@@ -903,7 +902,7 @@ figure[typeof~='mw:File/Thumb'] > figcaption:empty {
     .mw-image-border .mw-file-element {
         border: 1pt;
     }
-    .mw-parser-output a.external {}
+    /* .mw-parser-output a.external {} */
     .mw-parser-output a.external.autonumber::after,
     .mw-parser-output a.external.text::after {
         content: ' (' attr(href) ')';

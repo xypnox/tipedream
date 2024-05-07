@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/BookLayout.astro';
+import { SideNav } from '../../components/sidenav';
 
 export const getStaticPaths = (async () => {
   const allBooks = await getCollection('books');
@@ -18,11 +19,19 @@ export const getStaticPaths = (async () => {
 // console.log(slug);
 
 const { book } = Astro.props;
-const { Content } = await book.render();
+// const {getHeadings} = book;
+const {Content, headings} = await book.render();
+
+// const headings = await getHeadings();
+console.log(headings);
+
 ---
 
 <Layout title={book.data.title} author={book.data.author }>
-  <Content />
+  <SideNav headings={headings} client:load />
+  <div class="book">
+    <Content />
+  </div>
 </Layout>
 
 

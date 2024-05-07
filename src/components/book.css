@@ -1,3 +1,11 @@
+
+.book {
+  position: relative;
+  z-index: 1;
+  background-color: var(--background);
+  box-shadow: -2vw 0 2vw 2vw var(--background);
+}
+
 .book p {
   font-size: var(--step-0);
   margin-block: 1rem;
@@ -13,6 +21,17 @@
 .book p:first-child {
   text-indent: 0;
 }
+
+.book h1 {
+  margin-block: 8rem 4rem;
+  padding-block: 8rem;
+  border-block-start: 1px solid var(--accent-fade);
+  font-size: var(--step-4);
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  text-align: center;
+}
+
 
 .book h2 {
   margin-block: 8rem 4rem;
@@ -43,4 +62,58 @@
 
 .book blockquote p {
   margin-block: 0;
+}
+.content nav {
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  width: 20rem;
+  max-height: 100dvh;
+  margin-left: calc(-1 * var(--book-padding) + 1rem);
+  overflow-y: auto;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 1s ease-in-out;
+  box-shadow: 0 0 1rem var(--background);
+}
+
+.content nav.faded {
+  opacity: 0;
+}
+
+.content nav:hover {
+  z-index: 2;
+  background-color: var(--background);
+  opacity: 1;
+}
+
+.content nav:focus-within {
+  z-index: 2;
+  background-color: var(--background);
+  opacity: 1;
+}
+
+.content nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--step--1);
+}
+
+.content nav li a {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+}
+.content nav li a:hover {
+  color: var(--accent-text);
+}
+.content nav li a:focus {
+  color: var(--accent-text);
+  outline: 1px solid var(--accent);
+  outline-offset: 0.25rem;
+}
+
+.content:has(nav) .book {
+  margin-top: calc(-1 * (100vh - 2rem));
 }
