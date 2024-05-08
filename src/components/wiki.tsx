@@ -15,7 +15,8 @@ const WikiPage = styled.main`
   flex-direction: column;
   padding: 1rem;
   width: var(--page-width);
-  max-width: 100%;
+  max-width: 100dvh;
+  overflow-x: hidden;
   margin: 0 auto;
 `
 

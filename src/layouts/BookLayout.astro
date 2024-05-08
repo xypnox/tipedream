@@ -34,17 +34,17 @@ const resAuthor = author || frontmatter && frontmatter.author || undefined;
 
 <style>
   :root {
-    --book-width: 50ch;
-    --book-margin: calc((100dvw - min(var(--book-width), 100dvw)) / 4);
-    --book-padding: calc(var(--book-margin));
+    --book-content-width: 50ch;
+    --book-spacing-unit: calc((100dvw - min(var(--book-content-width), 100dvw)) / 4);
+    --book-margin:  max(var(--book-spacing-unit), 1rem);
+    --book-width: calc(var(--book-content-width) + 2 * var(--book-margin));
   }
 	main {
     font-size: var(--step-0);
-    width: calc(100dvw - 2rem);
+    width: var(--book-width);
     margin: var(--book-margin) auto;
-    box-sizing: content-box;
-    padding: var(--book-margin) max(var(--book-padding), 1rem);
-    max-width: var(--book-width);
+    padding: var(--book-margin) var(--book-margin);
+    max-width: 100%;
     border: 1px solid var(--accent-fade);
 	}
   main * {
@@ -60,10 +60,10 @@ const resAuthor = author || frontmatter && frontmatter.author || undefined;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--accent-fade);
-    min-height: 20rem;
+    min-height: 20em;
     text-align: center;
-    margin-block: 0rem 10rem;
-    padding: 2rem;
+    margin-block-end: 4em;
+    padding: 2em;
   }
   .cover h1 {
     color: var(--accent);
