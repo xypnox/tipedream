@@ -1,5 +1,14 @@
-import { For, Show, createMemo, createResource, createSignal, onCleanup, onMount } from "solid-js"
+import { For, Show, createEffect, createMemo, createResource, createSignal, onCleanup, onMount } from "solid-js"
+import { Router, Route, useLocation, A } from "@solidjs/router"
 import { styled } from 'solid-styled-components';
+
+const sampleArticles = [
+  "Main_Page",
+  "Earth",
+  "Saturn",
+  "India",
+  "Physics",
+]
 
 const WikiPage = styled.main`
   display: flex;
@@ -101,14 +110,6 @@ const Cover = styled.div`
     margin: 1rem;
   }
 `
-
-const sampleArticles = [
-  "Main_Page",
-  "Earth",
-  "Saturn",
-  "India",
-  "Physics",
-]
 
 const TitleInput = styled.input`
   font-size: 1.25rem;
@@ -275,16 +276,58 @@ const parseAndImproveContent = (html: string) => {
     title: doc.title
   }
 }
+const [wiki, setWiki] = createSignal<string>("Ablation")
 
-export const Wiki = () => {
-  const [wiki, setWiki] = createSignal<string>("Ablation")
+const [wikiHtml, { refetch }] = createResource(() => getWikiHtml(wiki()));
 
-  const [wikiHtml, { refetch }] = createResource(() => getWikiHtml(wiki()));
+const Toolbar = () => {
+  const location = useLocation();
+
+  const wikiPath = createMemo(() => {
+    const path = location.pathname
+    if (path === "/wiki/" || path === "/wiki") { return undefined }
+    const lastPath = path.substring(path.lastIndexOf("/") + 1)
+    return lastPath
+  });
 
   const onSubmit = (e: Event) => {
     e.preventDefault();
     refetch();
   }
+  createEffect(() => {
+    console.log('Search params and stuff', {
+      pathname: wikiPath(),
+    })
+
+    if (wikiPath()) {
+      setWiki(wikiPath()!)
+      refetch()
+    }
+  })
+
+  return (<Controls>
+    <form onSubmit={onSubmit}>
+      <TitleInput type="text" onChange={
+        (e) => setWiki((e.target as HTMLInputElement).value)
+      } value={wiki()}></TitleInput>
+      <button type="submit" disabled={wikiHtml.loading}>
+        {wikiHtml.loading ? "Loading..." : "Search"}
+      </button>
+    </form>
+
+    <ul>
+      <For each={sampleArticles}>{(page) => (
+        <li>
+          <A href={"/" + page}>{page}</A>
+        </li>
+      )}
+      </For>
+    </ul>
+  </Controls>)
+
+}
+
+const WikiPageContent = () => {
   const clickRemapper = (e: MouseEvent) => {
     const target = e.target as HTMLAnchorElement
     console.log('Clicked', target)
@@ -309,7 +352,6 @@ export const Wiki = () => {
     if (document)
       document.removeEventListener('click', clickRemapper)
   })
-
   const wikiDomContent = createMemo(() => {
     console.log('Extracting content from wiki html')
     if (!wikiHtml()) {
@@ -322,27 +364,8 @@ export const Wiki = () => {
   })
 
   return (
-    <WikiPage>
-      <Controls>
-        <form onSubmit={onSubmit}>
-          <TitleInput type="text" onChange={
-            (e) => setWiki((e.target as HTMLInputElement).value)
-          } value={wiki()}></TitleInput>
-          <button type="submit" disabled={wikiHtml.loading}>
-            {wikiHtml.loading ? "Loading..." : "Search"}
-          </button>
-        </form>
-
-        <ul>
-          <For each={sampleArticles}>{(page) => (
-            <li>
-              <button onClick={() => { setWiki(page); refetch() }}>{page}</button>
-            </li>
-          )}
-          </For>
-        </ul>
-      </Controls>
-
+    <>
+      <Toolbar />
       <Show when={wikiHtml.loading}>
         <Cover>
           <h1>Loading...</h1>
@@ -359,6 +382,16 @@ export const Wiki = () => {
           <div innerHTML={wikiDomContent().content}></div>
         </WikiContent>
       </Show>
+    </>
+  )
+}
+
+export const Wiki = () => {
+  return (
+    <WikiPage>
+      <Router base="/wiki">
+        <Route path="/:id?" component={WikiPageContent} />
+      </Router>
     </WikiPage>
   )
 }

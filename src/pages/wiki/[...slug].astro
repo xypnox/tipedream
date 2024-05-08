@@ -1,0 +1,19 @@
+---
+import { Wiki as WikiSolidJS } from '../../components/wiki';
+import Layout from '../../layouts/Layout.astro';
+import '../../components/wiki.css';
+import { GetStaticPaths } from 'astro/dist/@types/astro';
+
+export const getStaticPaths = (async () => {
+  return [
+    { params: { slug: 'Main_Page' } },
+    { params: { slug: undefined } },
+  ]
+}) satisfies GetStaticPaths;
+
+---
+
+<Layout title="Wiki">
+  <WikiSolidJS client:only="solid"/>
+</Layout>
+

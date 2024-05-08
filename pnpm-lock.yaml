@@ -17,6 +17,9 @@ importers:
       '@astrojs/solid-js':
         specifier: ^4.1.0
         version: 4.1.0(solid-js@1.8.17)(vite@5.2.11)
+      '@solidjs/router':
+        specifier: ^0.13.3
+        version: 0.13.3(solid-js@1.8.17)
       astro:
         specifier: ^4.7.1
         version: 4.7.1(typescript@5.4.5)
@@ -575,6 +578,11 @@ packages:
 
   '@shikijs/core@1.4.0':
     resolution: {integrity: sha512-CxpKLntAi64h3j+TwWqVIQObPTED0FyXLHTTh3MKXtqiQNn2JGcMQQ362LftDbc9kYbDtrksNMNoVmVXzKFYUQ==}
+
+  '@solidjs/router@0.13.3':
+    resolution: {integrity: sha512-p8zznlvnN3KySMXqT8irhubgDNTETNa/guaGHU/cZl7kuiPO3PmkWNYfoNCygtEpoxLmLpf62/ZKeyhFdZexsw==}
+    peerDependencies:
+      solid-js: ^1.8.6
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -2653,6 +2661,10 @@ snapshots:
     optional: true
 
   '@shikijs/core@1.4.0': {}
+
+  '@solidjs/router@0.13.3(solid-js@1.8.17)':
+    dependencies:
+      solid-js: 1.8.17
 
   '@types/acorn@4.0.6':
     dependencies:

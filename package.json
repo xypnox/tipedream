@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.3.1",
     "@astrojs/solid-js": "^4.1.0",
+    "@solidjs/router": "^0.13.3",
     "astro": "^4.7.1",
     "sharp": "^0.33.3",
     "solid-js": "^1.8.17",
