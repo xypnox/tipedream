@@ -2,7 +2,7 @@
 import { Wiki as WikiSolidJS } from '../../components/wiki';
 import Layout from '../../layouts/Layout.astro';
 import '../../components/wiki.css';
-import { GetStaticPaths } from 'astro/dist/@types/astro';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
   return [
