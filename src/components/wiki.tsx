@@ -2,6 +2,8 @@ import { For, Show, createEffect, createMemo, createResource, createSignal, onCl
 import { Router, Route, useLocation, A } from "@solidjs/router"
 import { styled } from 'solid-styled-components';
 
+const firstPage = "Saturn"
+
 const sampleArticles = [
   "Main_Page",
   "Earth",
@@ -16,7 +18,6 @@ const WikiPage = styled.main`
   padding: 1rem;
   width: var(--page-width);
   max-width: 100dvh;
-  overflow-x: hidden;
   margin: 0 auto;
 `
 
@@ -71,17 +72,15 @@ const Controls = styled.div`
     max-width: 100%;
     flex-wrap: wrap;
     margin: 0;
-    padding: 0;
+    padding: 0 0.5rem;
     li {
-      font-size: 0.75rem;
       margin: 0;
-      button {
+      font-size: 0.75rem;
+      a {
         color: var(--accent-text);
-        background-color: transparent;
       }
-      button:hover {
+      a:hover {
         color: var(--accent);
-        background-color: var(--surface-darker);
       }
     }
   }
@@ -277,7 +276,7 @@ const parseAndImproveContent = (html: string) => {
     title: doc.title
   }
 }
-const [wiki, setWiki] = createSignal<string>("Ablation")
+const [wiki, setWiki] = createSignal<string>(firstPage);
 
 const [wikiHtml, { refetch }] = createResource(() => getWikiHtml(wiki()));
 

@@ -1,6 +1,6 @@
 
 :root {
-  --page-width: min(60ch, 100%);
+  --page-width: min(40rem, 100%);
   --wiki-heading: var(--accent-text);
   --wiki-link: var(--accent-text);
   --wiki-link-hover: var(--accent);
@@ -1713,13 +1713,14 @@ span.mwe-math-mathml-inline {
     padding: 0.5em;
     float: right;
     clear: right;
+    white-space: normal;
     border-radius: 0.5rem;
     font-size: 88%;
     line-height: 1.5em;
     width: min(24em, 33vw);
     margin-right: calc(-0.5 * var(--gutter-gap));
-    max-width: 20ch;
-    /* margin-right: calc(-0.75 * (100dvh - 100vw)); */
+    width: 20ch;
+    word-wrap: break-word;
 }
 .infobox td,
 .infobox th,
@@ -1927,6 +1928,13 @@ body.skin-vector-legacy .mw-indicators {
   padding-block: 0 0.5em;
 }
 
+.infobox-image img {
+  width: 100%;
+  height: auto;
+  margin-block: 0.5em;
+  max-width: 20rem;
+}
+
 .infobox-header {
   background-color: transparent !important;
   border-bottom: 1px solid var(--accent-fade);
@@ -2010,8 +2018,10 @@ figure[typeof~="mw:File/Thumb"] .mw-file-element,
   /* margin: 0; */
 
   min-width: 90dvw;
-  font-size: var(--step--2);
+  max-width: 100vw;
+  font-size: var(--step--1);
   margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+  margin-block: 2rem;
 }
 
 .navbox .navbox {
@@ -2065,7 +2075,6 @@ figure[typeof~="mw:File/Thumb"] .mw-file-element,
     margin-right: 1rem !important;
   }
   .infobox {
-    table-layout: fixed;
     min-width: 24rem;
     /* max-width: 20ch !important; */
   }
@@ -2090,6 +2099,104 @@ figure[typeof~="mw:File/Thumb"] .mw-file-element,
   }
 }
 
+.plainlist ul,
+.hlist ul {
+  display: inline-flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0rem;
+  width: 100%;
+}
+
+.hlist ul ul {
+  margin: 0rem;
+}
+
+.navbox .navbox-title {
+  padding-top: 1rem;
+}
+
+.navbox-list li,
+.hlist ul li {
+  font-size: var(--step--2);
+  margin: 0.1rem 0.75rem 0.1rem 0;
+}
+
+.plainlist ul li {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.infobox ul li {
+  display: block;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  /* align-items: center; */
+}
+ul#sister-projects-list li {
+  gap: 0.5rem;
+  margin: 0.2rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--surface-lighter);
+  border: 1px solid var(--accent-fade);
+  font-size: var(--step--1);
+}
+#mp-topbanner {
+  display: none;
+}
+
+th.infobox-label {
+  text-align: right;
+  padding-right: 0.5em;
+}
 
 
+table.sidebar {
+  border-collapse: collapse;
+  margin: 1rem 0 2rem;
+  border: 1px solid var(--accent-fade);
+}
+
+table.sidebar th,
+table.sidebar td {
+  border: 1px solid var(--accent-fade);
+  padding: 0.5em;
+}
+
+table.sidebar .sidebar-image {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+h2 {
+  margin-block: 4rem 1rem;
+  font-size: var(--step-2);
+}
+
+h3 {
+  font-size: var(--step-1);
+}
+
+table.wikitable {
+  border-collapse: collapse;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  margin-block: 2rem;
+  margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+}
+
+table[role="presentation"] {
+  border-collapse: collapse;
+  margin-block: 2rem;
+  margin-left: calc(-1 * var(--gutter-gap) + 5dvw);
+}
+
+table.wikitable th,
+table.wikitable td {
+  border: 1px solid var(--accent-fade);
+  padding: 0.5em;
+}
 
